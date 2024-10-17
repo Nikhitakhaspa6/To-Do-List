@@ -1,0 +1,36 @@
+/* Styling the body */
+body {
+  background: linear-gradient(135deg, #d4f1f9, #f9e4d4);
+}
+
+/* Shadow effect for card */
+.card {
+  border-radius: 12px;
+}
+
+/* Add shadow and transition to buttons */
+.btn {
+  transition: all 0.2s;
+}
+
+.btn:hover {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Task List Styling */
+.list-group-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.2rem;
+}
+
+.list-group-item .bi {
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.list-group-item .bi:hover {
+  color: #dc3545; /* Bootstrap danger color */
+}
