@@ -17,7 +17,7 @@ function addTask() {
   const taskText = taskInput.value.trim();
   if (taskText === '') return;
 
-  const task = { id: Date.now(), text: taskText };
+  const task = { id: Date.now(), text: taskText, completed: false };
   addTaskToDOM(task);
   saveTaskToLocalStorage(task);
 
@@ -27,17 +27,33 @@ function addTask() {
 // Add a task item to the DOM
 function addTaskToDOM(task) {
   const li = document.createElement('li');
-  li.className = 'list-group-item';
+  li.className = `list-group-item ${task.completed ? 'completed' : ''}`;
   li.dataset.id = task.id;
   li.innerHTML = `
-    ${task.text}
+    <input type="checkbox" ${task.completed ? 'checked' : ''}>
+    <span>${task.text}</span>
     <i class="bi bi-trash3 text-danger delete-task"></i>
   `;
 
   taskList.appendChild(li);
 
-  // Add event listener for delete button
+  // Add event listeners for checkbox and delete button
+  li.querySelector('input[type="checkbox"]').addEventListener('change', () => toggleTaskCompletion(task.id));
   li.querySelector('.delete-task').addEventListener('click', () => deleteTask(task.id));
+}
+
+// Toggle task completion status
+function toggleTaskCompletion(id) {
+  const tasks = getTasksFromLocalStorage();
+  const task = tasks.find(task => task.id === id);
+  task.completed = !task.completed;
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+
+  // Toggle completed class in DOM
+  const taskItem = document.querySelector(`[data-id="${id}"]`);
+  if (taskItem) {
+    taskItem.classList.toggle('completed');
+  }
 }
 
 // Save task to localStorage
