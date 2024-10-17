@@ -26,6 +26,15 @@ body {
   font-size: 1.2rem;
 }
 
+.list-group-item input[type="checkbox"] {
+  margin-right: 15px;
+}
+
+.list-group-item.completed {
+  text-decoration: line-through;
+  color: #6c757d;
+}
+
 .list-group-item .bi {
   cursor: pointer;
   transition: color 0.2s;
